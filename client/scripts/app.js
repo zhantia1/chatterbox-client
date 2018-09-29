@@ -2,7 +2,7 @@ var App = {
 
   $spinner: $('.spinner img'),
 
-  username: 'anonymous',
+  username: 'snowbirds',
 
   initialize: function() {
     App.username = window.location.search.substr(10);
@@ -20,8 +20,10 @@ var App = {
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
       // examine the response from the server request:
+      for(var post of data.results) {
+        MessagesView.renderMessage(post);
+      }
       console.log(data);
-
       callback();
     });
   },
@@ -35,4 +37,5 @@ var App = {
     App.$spinner.fadeOut('fast');
     FormView.setStatus(false);
   }
+  
 };
