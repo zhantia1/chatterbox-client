@@ -9,17 +9,16 @@ var FormView = {
   handleSubmit: function(event) {
     // Stop the browser from submitting the form
 
-    //event.preventDefault();
+    event.preventDefault();
     
     var theText = FormView.$form.serialize().split('=')[1];
     var message = {
       username: App.username,
       text: theText,
-      roomname: "Lobby"
+      roomname: RoomsView.selectedRoom //"Lobby"
     };
     Parse.create(message);
-    
-    console.log('click!');
+    App.fetch();    
   },
 
   setStatus: function(active) {

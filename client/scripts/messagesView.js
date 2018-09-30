@@ -2,21 +2,27 @@ var MessagesView = {
 
   $chats: $('#chats'),
   $send: $('#send'),
+  $username: $('.username'),
 
   initialize: function() {
-    // should render current messages
+    MessagesView.$chats.on('click', 'a', function(event) {
+      let friendName = $(this).text();
+      Friends.friends[friendName] = true;
+      $(this).parent().next().addClass('friend');
+    });
   },
 
-  render: function() {
+  render: function(messages) {
+    $('.chat').remove();
+    for (let message of messages) {
+      MessagesView.renderMessageByRoom(message);
+    }
   },
   
-  renderMessage: function(message) {
+  renderMessageByRoom: function(message) {
     //console.log(message);
-    if (message.username && message.text && message.roomname) {
-      var theMessage = MessageView.render(message);
-      MessagesView.$chats.append(theMessage);
-    }
-    $('.username').on('click', Friends.toggleStatus);
+    var theMessage = MessageView.render(message);
+    MessagesView.$chats.append(theMessage);
   }
 
 };

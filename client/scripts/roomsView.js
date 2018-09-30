@@ -2,22 +2,31 @@ var RoomsView = {
 
   $button: $('#rooms button'),
   $select: $('#rooms select'),
+  selectedRoom: 'All',
 
   initialize: function() {
     RoomsView.$button.on('click', function() {
       Rooms.add();
     });
+    RoomsView.$select.on('change', function() {
+      RoomsView.selectedRoom = $( '#rooms select option:selected' ).val();
+      App.fetch();
+    });
   },
 
-  render: _.template(`
-      <option> <%roomname%> </option>
-  `),
+  render: function(rooms) {
+    $('.canBeDeleted').remove();
+    for (let room in rooms) {
+      RoomsView.renderRoom(room);
+    }
+  },
   
   renderRoom: function(room) {
-    if (room.roomname) {
-      var newRoom = RoomsView.render(room);
-      RoomsView.$select.append(newRoom);
-    }
+    let roomObject = {roomname: room};
+    let theRoom = RoomView.render(roomObject);
+    RoomsView.$select.append(theRoom);
   }
+  
+  
 };
 
