@@ -7,9 +7,10 @@ var Friends = {
     //   Friends.status = true;
     // }
     // Friends.status = false;
-    for (var key in Friends.friends) {
+    for (var friend in Friends.friends) {
       for (var each of $('.chat')) {
-        if ($(each).find('a') === key) {
+        console.log($(each).find('a').text());
+        if ($(each).find('a').text() === friend) {
           $(each).find('.text').addClass('friend');
         }
       }

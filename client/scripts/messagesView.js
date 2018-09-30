@@ -9,6 +9,7 @@ var MessagesView = {
       let friendName = $(this).text();
       Friends.friends[friendName] = true;
       $(this).parent().next().addClass('friend');
+      Friends.toggleStatus();
     });
   },
 
